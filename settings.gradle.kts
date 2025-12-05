@@ -1,4 +1,4 @@
-rootProject.name = "Mimic"
+rootProject.name = "OwEconomy"
 
 include("plugin")
 include("plugin-bundle")
@@ -10,5 +10,5 @@ include("project:module-core")
 include("project:module-command")
 include("project:module-kether")
 include("project:module-kether-extra")
-// include("project:module-database")
+include("project:module-database")
 // include("project:module-metrics")

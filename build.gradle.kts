@@ -10,7 +10,7 @@ plugins {
     kotlin("jvm") version "2.1.0"
 }
 
-// val exposedVersion: String by project
+val exposedVersion: String by project
 
 subprojects {
     apply<JavaPlugin>()
@@ -31,7 +31,7 @@ subprojects {
             )
         }
         version {
-            taboolib = "6.2.3-1a8d7125"
+            taboolib = "6.2.4-abd325ee"
         }
         relocate("top.maplex.arim", "${rootProject.group}.arim")
     }
@@ -41,8 +41,7 @@ subprojects {
         // mavenLocal()
         mavenCentral()
         maven("https://repo.hiusers.com/releases")
-        // Libby
-        maven("https://repo.alessiodp.com/releases/")
+        maven("https://repo.codemc.io/repository/creatorfromhell/")
     }
 
     // 全局依赖
@@ -52,14 +51,14 @@ subprojects {
 
         compileOnly("com.google.code.gson:gson:2.8.7")
         implementation("top.maplex.arim:Arim:1.2.14")
+        compileOnly("net.milkbowl.vault:VaultUnlockedAPI:2.16")
 
+        compileOnly("com.zaxxer:HikariCP:4.0.3")
 
-        // compileOnly("com.zaxxer:HikariCP:4.0.3")
-        //
-        // compileOnly("org.jetbrains.exposed:exposed-core:${exposedVersion}")
-        // compileOnly("org.jetbrains.exposed:exposed-dao:${exposedVersion}")
-        // compileOnly("org.jetbrains.exposed:exposed-jdbc:${exposedVersion}")
-        // compileOnly("org.jetbrains.exposed:exposed-java-time:${exposedVersion}")
+        compileOnly("org.jetbrains.exposed:exposed-core:${exposedVersion}")
+        compileOnly("org.jetbrains.exposed:exposed-dao:${exposedVersion}")
+        compileOnly("org.jetbrains.exposed:exposed-jdbc:${exposedVersion}")
+        compileOnly("org.jetbrains.exposed:exposed-java-time:${exposedVersion}")
     }
     // 编译配置
     java {

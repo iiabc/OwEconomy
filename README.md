@@ -34,7 +34,6 @@
 - 独立 database（可选做法）：
     1. 在 `project:module-database` 中配置 `maven-publish`，发布 `shadowJar`（`-all.jar`）到 `mavenLocal` 或私服；
     2. `:plugin-bundle` 可选择：
-        - 将 database 作为运行时库由 Libby 拉取；或
         - 继续在本地存在时拼接（当前脚本已支持本地存在自动拼接）。
 
 > 说明：`plugin.yml` 由 TabooLib 自动生成。聚合构建（`:plugin-bundle`）在最终产物中追加 `libraries` 段以声明 Exposed
