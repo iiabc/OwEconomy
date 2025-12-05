@@ -1,0 +1,6 @@
+player_not_online: "&c&l! &r玩家 &a{0} &r不在线"
+
+kether_result: "&6&l! &7结果：&r{0}"
+kether_error: "&c&l! &7错误：&r{0}"
+
+command_reload: "&6&l! &r已重载配置"
