@@ -1,6 +1,62 @@
-player_not_online: "&c&l! &r玩家 &a{0} &r不在线"
+# OwEconomy 语言文件 - 简体中文
 
-kether_result: "&6&l! &7结果：&r{0}"
-kether_error: "&c&l! &7错误：&r{0}"
+# 通用错误
+error_economy_not_loaded: "&c经济系统尚未完全加载，请稍后再试"
+error_invalid_amount: "&c无效的金额: {0}"
+error_amount_must_positive: "&c金额必须大于 0"
+error_amount_must_non_negative: "&c金额不能为负数"
+error_currency_not_found: "&c货币不存在: {0}"
+error_player_not_online: "&c玩家 {0} 不在线或不存在"
+error_cannot_pay_self: "&c不能给自己转账"
+error_unknown: "&c未知错误"
 
-command_reload: "&6&l! &r已重载配置"
+# 命令消息
+command_reload_success: "&a[OwEconomy] 配置已重载"
+
+# 转账相关
+transfer_success_sender: "&a成功向 {0} 转账 {1}"
+transfer_success_receiver: "&a收到来自 {0} 的转账: {1}"
+transfer_failed: "&c转账失败: {0}"
+
+# 余额查询
+balance_show: "&a你的 {0} 余额: {1}"
+balance_show_with_limit: "&a你的 {0} 余额: {1} &7(上限: {2})"
+balance_show_other: "&a玩家 {0} 的 {1} 余额: {2}"
+balance_show_other_with_limit: "&a玩家 {0} 的 {1} 余额: {2} &7(上限: {3})"
+balance_currencies_title: "&a可用货币:"
+balance_currencies_item: "&7- {0}: {1}"
+
+# 货币显示名称
+currency-display-singular-gold: "金币"
+currency-display-plural-gold: "金币"
+currency-display-singular-diamond: "钻石"
+currency-display-plural-diamond: "钻石"
+currency-display-singular-points: "积分"
+currency-display-plural-points: "积分"
+
+# 系统操作
+reward_success: "&a成功奖励 {0} {1}"
+reward_truncated: "&e注意: 实际奖励 {0}（超出上限已截取）"
+reward_failed: "&c奖励失败: {0}"
+
+deduct_success: "&a成功扣除 {0} {1}"
+deduct_failed: "&c扣除失败: {0}"
+
+set_success: "&a成功设置 {0} 的余额为 {1}"
+set_failed: "&c设置失败: {0}"
+
+# 控制台消息
+console_error_service_not_initialized: "&c[OwEconomy] 错误: EconomyServiceImpl 未初始化，无法注册 Vault 服务"
+console_error_no_currencies: "&c[OwEconomy] 错误: 没有配置任何货币，无法注册 Economy 服务"
+console_success_vault2_registered: "&a[OwEconomy] 已注册 VaultUnlockedAPI (vault2) Economy 服务"
+console_success_vault_legacy_registered: "&a[OwEconomy] 已注册旧版 Vault API Economy 服务"
+console_info_default_currency: "&a[OwEconomy] 默认货币: {0} ({1})"
+console_info_currencies_loaded: "&a[OwEconomy] 已配置货币: {0}"
+console_warn_config_not_initialized: "&e[OwEconomy] 警告: 配置文件尚未初始化，无法加载货币配置"
+console_warn_no_currencies_section: "&e[OwEconomy] 警告: 配置文件中没有找到 currencies 节点"
+console_info_currencies_count: "&a[OwEconomy] 已加载 {0} 个货币配置"
+console_warn_no_default_currency: "&e[OwEconomy] 警告: 没有设置 default: true 的货币，将使用第一个货币作为默认货币"
+console_warn_multiple_default_currency: "&e[OwEconomy] 警告: 有多个货币设置了 default: true，将使用第一个遇到的货币: {0}"
+console_error_reset_cycle_invalid: "&c[OwEconomy] 货币 {0} 的清零周期配置错误: {1}"
+console_error_reset_cycle_error: "&c错误: {0}"
+console_success_currency_reset: "&a[OwEconomy] 货币 {0} 已清零，共清零 {1} 个账户"

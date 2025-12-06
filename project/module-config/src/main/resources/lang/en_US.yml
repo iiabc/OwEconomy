@@ -1,0 +1,66 @@
+# OwEconomy Language File - English
+
+# Common Errors
+error_economy_not_loaded: "&cEconomy system is not fully loaded, please try again later"
+error_invalid_amount: "&cInvalid amount: {0}"
+error_amount_must_positive: "&cAmount must be greater than 0"
+error_amount_must_non_negative: "&cAmount cannot be negative"
+error_currency_not_found: "&cCurrency not found: {0}"
+error_player_not_online: "&cPlayer {0} is not online or does not exist"
+error_cannot_pay_self: "&cCannot pay yourself"
+error_unknown: "&cUnknown error"
+
+# Command Messages
+command_reload_success: "&a[OwEconomy] Configuration reloaded"
+
+# Transfer Related
+transfer_success_sender: "&aSuccessfully transferred {1} to {0}"
+transfer_success_receiver: "&aReceived {1} from {0}"
+transfer_failed: "&cTransfer failed: {0}"
+
+# Balance Query
+balance_show: "&aYour {0} balance: {1}"
+balance_show_with_limit: "&aYour {0} balance: {1} &7(limit: {2})"
+balance_show_other: "&aPlayer {0}'s {1} balance: {2}"
+balance_show_other_with_limit: "&aPlayer {0}'s {1} balance: {2} &7(limit: {3})"
+balance_currencies_title: "&aAvailable currencies:"
+balance_currencies_item: "&7- {0}: {1}"
+
+# Currency Display Names
+currency-display-singular-gold: "Gold"
+currency-display-plural-gold: "Gold"
+currency-display-singular-diamond: "Diamond"
+currency-display-plural-diamond: "Diamonds"
+currency-display-singular-points: "Point"
+currency-display-plural-points: "Points"
+currency-display-singular-ender_coin: "Ender Coin"
+currency-display-plural-ender_coin: "Ender Coins"
+currency-display-singular-token: "Token"
+currency-display-plural-token: "Tokens"
+
+# System Operations
+reward_success: "&aSuccessfully rewarded {0} {1}"
+reward_truncated: "&eNote: Actual reward {0} (exceeded limit, truncated)"
+reward_failed: "&cReward failed: {0}"
+
+deduct_success: "&aSuccessfully deducted {1} from {0}"
+deduct_failed: "&cDeduction failed: {0}"
+
+set_success: "&aSuccessfully set {0}'s balance to {1}"
+set_failed: "&cSet failed: {0}"
+
+# Console Messages
+console_error_service_not_initialized: "&c[OwEconomy] Error: EconomyServiceImpl not initialized, cannot register Vault service"
+console_error_no_currencies: "&c[OwEconomy] Error: No currencies configured, cannot register Economy service"
+console_success_vault2_registered: "&a[OwEconomy] Registered VaultUnlockedAPI (vault2) Economy service"
+console_success_vault_legacy_registered: "&a[OwEconomy] Registered legacy Vault API Economy service"
+console_info_default_currency: "&a[OwEconomy] Default currency: {0} ({1})"
+console_info_currencies_loaded: "&a[OwEconomy] Configured currencies: {0}"
+console_warn_config_not_initialized: "&e[OwEconomy] Warning: Configuration file not initialized, cannot load currency configuration"
+console_warn_no_currencies_section: "&e[OwEconomy] Warning: No currencies section found in configuration file"
+console_info_currencies_count: "&a[OwEconomy] Loaded {0} currency configurations"
+console_warn_no_default_currency: "&e[OwEconomy] Warning: No currency with default: true set, will use the first currency as default"
+console_warn_multiple_default_currency: "&e[OwEconomy] Warning: Multiple currencies have default: true set, will use the first encountered: {0}"
+console_error_reset_cycle_invalid: "&c[OwEconomy] Currency {0} reset cycle configuration error: {1}"
+console_error_reset_cycle_error: "&cError: {0}"
+console_success_currency_reset: "&a[OwEconomy] Currency {0} reset, {1} accounts reset"

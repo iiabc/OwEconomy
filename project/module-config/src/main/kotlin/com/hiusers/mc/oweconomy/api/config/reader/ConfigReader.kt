@@ -16,4 +16,7 @@ object ConfigReader {
     @ConfigNode("database.enable")
     var databaseEnable: Boolean = false
 
+    @ConfigNode("hide-message")
+    var hideMessage: Boolean = false
+
 }

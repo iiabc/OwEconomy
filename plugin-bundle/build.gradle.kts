@@ -7,6 +7,7 @@ import java.nio.file.Files
 import java.nio.file.StandardOpenOption
 
 val exposedVersion: String by project
+val kotlinVersion: String by project
 
 plugins {
     id("com.github.johnrengelman.shadow")
@@ -52,6 +53,8 @@ tasks {
                         """
                             
                             libraries:
+                              - org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion
+                              - org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion
                               - org.jetbrains.exposed:exposed-core:$exposedVersion
                               - org.jetbrains.exposed:exposed-dao:$exposedVersion
                               - org.jetbrains.exposed:exposed-jdbc:$exposedVersion

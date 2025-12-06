@@ -27,6 +27,7 @@ subprojects {
                 Kether,
                 BukkitUtil,
                 BukkitNavigation,
+                BukkitHook,
                 JavaScript
             )
         }

@@ -1,15 +1,17 @@
-package com.hiusers.questengine.service
+package com.hiusers.mc.oweconomy.service
 
-import com.hiusers.questengine.api.config.reader.ConfigReader
-import com.hiusers.questengine.database.table.*
-import com.hiusers.questengine.system.Loadable
-import com.hiusers.questengine.system.Register
+import com.hiusers.mc.oweconomy.api.config.reader.ConfigReader
+import com.hiusers.mc.oweconomy.database.table.*
+import com.hiusers.mc.oweconomy.system.Loadable
+import com.hiusers.mc.oweconomy.system.Register
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.ExposedConnectionImpl
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import taboolib.common.env.RuntimeDependencies
+import taboolib.common.env.RuntimeDependency
 import taboolib.common.io.newFile
 import taboolib.common.platform.function.console
 import taboolib.common.platform.function.disablePlugin
@@ -79,7 +81,7 @@ object DatabaseService : Loadable {
                 addDataSourceProperty("maintainTimeStats", "false")
             } else {
                 // SQLite
-                val databaseFile = newFile(getDataFolder(), "database/quests.db")
+                val databaseFile = newFile(getDataFolder(), "database/oweconomy.db")
                 jdbcUrl = "jdbc:sqlite:${databaseFile.absolutePath}"
                 driverClassName = "org.sqlite.JDBC"
                 username = null
@@ -149,7 +151,8 @@ object DatabaseService : Loadable {
     private fun createTables() {
         transaction {
             SchemaUtils.create(
-                PlayersTable
+                AccountTable,
+                PlayerBalanceTable
             )
         }
     }

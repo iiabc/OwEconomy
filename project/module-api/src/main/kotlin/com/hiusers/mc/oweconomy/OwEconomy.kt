@@ -1,6 +1,6 @@
 package com.hiusers.mc.oweconomy
 
-import com.hiusers.mc.oweconomy.api.MimicAPI
+import com.hiusers.mc.oweconomy.api.EconomyAPI
 import org.bukkit.Bukkit
 import org.bukkit.plugin.ServicePriority
 import taboolib.platform.util.bukkitPlugin
@@ -11,16 +11,16 @@ import taboolib.platform.util.bukkitPlugin
  */
 object OwEconomy {
 
-    internal var api: MimicAPI? = null
+    internal var api: EconomyAPI? = null
 
-    fun api(): MimicAPI {
-        return api ?: throw IllegalStateException("QuestEngine API 未完成加载")
+    fun api(): EconomyAPI {
+        return api ?: throw IllegalStateException("OwEconomy API 未完成加载")
     }
 
-    fun register(api: MimicAPI) {
+    fun register(api: EconomyAPI) {
         this.api = api
         Bukkit.getServicesManager().register(
-            MimicAPI::class.java,
+            EconomyAPI::class.java,
             api,
             bukkitPlugin,
             ServicePriority.Normal

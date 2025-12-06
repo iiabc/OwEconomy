@@ -4,5 +4,23 @@ database:
   port: 3306
   user: root
   password: root
-  database: quest_engine
-  table: qe
+  database: oweconomy
+  table: oweconomy
+
+# 是否隐藏系统奖励和扣除消息
+hide-message: false
+
+currencies:
+  gold:
+    default: true  # 作为旧版 Vault API 的默认货币
+    max-balance: 10000  # -1 表示无上限
+    fractional-digits: 2
+    reset-cycle: "week 1 06 00"  # 每周一 06:00 清零，不填或空表示永不清零
+  diamond:
+    max-balance: -1  # 无上限
+    fractional-digits: 0
+    # reset-cycle 不填，表示永不清零
+  points:
+    max-balance: 5000
+    fractional-digits: 0
+    reset-cycle: "month 1 06 00"  # 每月1号 06:00 清零
