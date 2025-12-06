@@ -192,12 +192,27 @@ class EconomyServiceImpl : Economy {
     }
 
     override fun balance(pluginName: String, accountID: UUID, world: String, currency: String): BigDecimal {
-        // 确保账户存在
-        if (!hasAccount(accountID)) {
-            val name = getAccountName(accountID).orElse("Unknown")
-            createAccount(accountID, name, true)
-        }
+        // 查询余额不应该负责创建账户，直接查询即可
+        // 如果账户不存在，余额查询会返回 0
         return BalanceRepository.getBalance(accountID, currency)
+    }
+    
+    /**
+     * 确保账户存在，如果不存在则创建
+     * 用于在修改余额的操作前确保账户已创建
+     */
+    private fun ensureAccountExists(accountID: UUID) {
+        // 使用缓存快速检查，避免频繁查询数据库
+        if (!AccountRepository.hasAccount(accountID)) {
+            try {
+                val offlinePlayer = Bukkit.getOfflinePlayer(accountID)
+                val name = offlinePlayer.name ?: throw IllegalStateException("无法获取玩家名称: $accountID")
+                AccountRepository.upsertAccount(accountID, name, true)
+            } catch (e: Exception) {
+                // 如果创建失败，可能是并发创建或其他原因，忽略即可
+                // 后续操作会再次尝试或返回错误
+            }
+        }
     }
 
     override fun has(pluginName: String, accountID: UUID, amount: BigDecimal): Boolean {
@@ -229,6 +244,9 @@ class EconomyServiceImpl : Economy {
         val currencyConfig = CurrencyConfigService.getCurrency(currency)
             ?: return EconomyResponse(BigDecimal.ZERO, BigDecimal.ZERO, EconomyResponse.ResponseType.FAILURE, "货币不存在: $currency")
 
+        // 确保账户存在
+        ensureAccountExists(accountID)
+        
         // 检查上限
         val currentBalance = balance(pluginName, accountID, worldName, currency)
         val actualAmount = if (currencyConfig.maxBalance == -1L) {
@@ -261,6 +279,9 @@ class EconomyServiceImpl : Economy {
         val currencyConfig = CurrencyConfigService.getCurrency(currency)
             ?: return EconomyResponse(BigDecimal.ZERO, BigDecimal.ZERO, EconomyResponse.ResponseType.FAILURE, "货币不存在: $currency")
 
+        // 确保账户存在
+        ensureAccountExists(accountID)
+        
         val currentBalance = balance(pluginName, accountID, worldName, currency)
         if (currentBalance < amount) {
             return EconomyResponse(BigDecimal.ZERO, currentBalance, EconomyResponse.ResponseType.FAILURE, "余额不足")
@@ -289,6 +310,9 @@ class EconomyServiceImpl : Economy {
         val currencyConfig = CurrencyConfigService.getCurrency(currency)
             ?: return EconomyResponse(BigDecimal.ZERO, BigDecimal.ZERO, EconomyResponse.ResponseType.FAILURE, "货币不存在: $currency")
 
+        // 确保账户存在
+        ensureAccountExists(accountID)
+        
         val currentBalance = balance(pluginName, accountID, worldName, currency)
         
         // 检查上限（系统奖励自动截取）

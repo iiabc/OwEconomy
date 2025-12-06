@@ -14,5 +14,10 @@ object PlayerBalanceTable : LongIdTable("${ConfigReader.tableName}_balances") {
     val currencyId = varchar("currency_id", 64).index()
     val balance = decimal("balance", 20, 4).default(BigDecimal.ZERO)
     val lastReset = long("last_reset").nullable()
+    
+    init {
+        // 添加唯一约束，确保每个玩家每种货币只有一条记录
+        uniqueIndex(uuid, currencyId)
+    }
 }
 

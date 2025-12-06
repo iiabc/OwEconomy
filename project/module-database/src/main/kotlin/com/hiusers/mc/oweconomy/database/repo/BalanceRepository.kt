@@ -3,11 +3,13 @@ package com.hiusers.mc.oweconomy.database.repo
 import com.hiusers.mc.oweconomy.database.table.PlayerBalanceTable
 import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.exceptions.ExposedSQLException
 import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import org.jetbrains.exposed.v1.jdbc.update
 import java.math.BigDecimal
+import java.sql.SQLIntegrityConstraintViolationException
 import java.util.*
 
 /**
@@ -35,26 +37,28 @@ object BalanceRepository {
 
     /**
      * 设置余额
+     * 使用 try-catch 处理并发情况下的主键冲突
      */
     fun setBalance(uuid: UUID, currencyId: String, balance: BigDecimal) {
         transaction {
-            val exists = PlayerBalanceTable.selectAll()
-                .where {
-                    (PlayerBalanceTable.uuid eq uuid) and (PlayerBalanceTable.currencyId eq currencyId)
-                }
-                .any()
-
-            if (exists) {
-                PlayerBalanceTable.update({
-                    (PlayerBalanceTable.uuid eq uuid) and (PlayerBalanceTable.currencyId eq currencyId)
-                }) {
-                    it[PlayerBalanceTable.balance] = balance
-                }
-            } else {
+            try {
+                // 先尝试插入
                 PlayerBalanceTable.insert {
                     it[PlayerBalanceTable.uuid] = uuid
                     it[PlayerBalanceTable.currencyId] = currencyId
                     it[PlayerBalanceTable.balance] = balance
+                }
+            } catch (e: ExposedSQLException) {
+                // 如果是主键冲突（并发情况），则执行更新
+                if (e.cause is SQLIntegrityConstraintViolationException) {
+                    PlayerBalanceTable.update({
+                        (PlayerBalanceTable.uuid eq uuid) and (PlayerBalanceTable.currencyId eq currencyId)
+                    }) {
+                        it[PlayerBalanceTable.balance] = balance
+                    }
+                } else {
+                    // 其他异常继续抛出
+                    throw e
                 }
             }
         }
